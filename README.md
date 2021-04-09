@@ -49,7 +49,7 @@ A _"test"_ script already exists you can use to run tests against your code.
   [x] `[GET] /api/actions` returns an array of actions (or an empty array) as the body of the _response_.
   [x] `[GET] /api/actions/:id` returns an action with the given `id` as the body of the _response_.
   [x] `[POST] /api/actions` returns the newly created action as the body of the _response_.
-  [ ] `[PUT] /api/actions/:id` returns the updated action as the body of the _response_.
+  [x] `[PUT] /api/actions/:id` returns the updated action as the body of the _response_.
   [x] `[DELETE] /api/actions/:id` returns no _response_ body.
 
 - [ ] Inside `api/projects/projects-router.js` build endpoints for performing CRUD operations on _projects_:

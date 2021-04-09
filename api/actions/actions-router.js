@@ -58,7 +58,42 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-	//
+	const { project_id, description, notes } = req.body;
+
+	if (!project_id || !description || !notes) {
+		res.status(400).json({
+			message:
+				'Please provide project id, description,  and notes for the action',
+		});
+	} else {
+		Action.get(req.params.id)
+			.then((action) => {
+				if (!action) {
+					res
+						.status(404)
+						.json({
+							message: 'The action with the specified ID does not exist',
+						});
+				} else {
+					return Action.update(req.params.id, req.body);
+				}
+			})
+			.then((data) => {
+				if (data) {
+					return Action.get(req.params.id);
+				}
+			})
+			.then((action) => {
+				if (action) {
+					res.json(action);
+				}
+			})
+			.catch(() => {
+				res
+					.status(500)
+					.json({ message: 'The action information could not be modified' });
+			});
+	}
 });
 
 router.delete('/:id', async (req, res) => {
