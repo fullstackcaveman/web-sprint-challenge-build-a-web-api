@@ -1,3 +1,4 @@
+// Renamed imports to work with Dynamic Variables
 const { get: actionGet } = require('../actions/actions-model');
 const { get: projectGet } = require('../projects/projects-model');
 
@@ -7,8 +8,10 @@ const { get: projectGet } = require('../projects/projects-model');
 const validateId = (model) => async (req, res, next) => {
 	const id = req.params.id;
 
+	// Changing 1st letter of model to uppercase for the .status(404)
 	const upperCaseModel = model.charAt(0).toUpperCase() + model.slice(1);
 
+	// Dynamic variable based on what is passed into middleware
 	const modelGet = model === 'action' ? actionGet : projectGet;
 
 	try {
