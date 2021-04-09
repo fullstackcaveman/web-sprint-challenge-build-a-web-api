@@ -1,5 +1,9 @@
 // Write your "actions" router here!
 const express = require('express');
+const {
+	validateActionId,
+	validateAction,
+} = require('../middleware/actionMiddleware');
 const router = express.Router();
 
 const Action = require('./actions-model');
@@ -16,98 +20,43 @@ router.get('/', (req, res) => {
 		});
 });
 
-router.get('/:id', (req, res) => {
-	const id = req.params.id;
+router.get('/:id', validateActionId, (req, res) => {
+	res.json(req.action);
+});
 
-	Action.get(id)
+router.post('/', validateAction, (req, res) => {
+	Action.insert(req.body)
+		.then((action) => {
+			res.json(action);
+		})
+		.catch(() => {
+			res.status(500).json({
+				message: 'There was an error while saving the action to the database',
+			});
+		});
+});
+
+router.put('/:id', validateActionId, validateAction, (req, res) => {
+	const changes = req.body;
+
+	Action.update(req.params.id, changes)
+		.then(() => {
+			return Action.get(req.action.id);
+		})
 		.then((action) => {
 			if (action) {
 				res.json(action);
-			} else {
-				res.status(404).json(`Action with id of ${id} not found`);
 			}
 		})
 		.catch(() => {
 			res
 				.status(500)
-				.json({ message: 'The action information could not be retrieved' });
+				.json({ message: 'The action information could not be modified' });
 		});
 });
 
-router.post('/', (req, res) => {
-	const { project_id, description, notes } = req.body;
-
-	if (!project_id || !description || !notes) {
-		res
-			.status(400)
-			.json({ message: 'Please provide description and notes for the action' });
-	} else {
-		Action.insert(req.body)
-			.then(({ id }) => {
-				return Action.get(id);
-			})
-			.then((action) => {
-				res.json(action);
-			})
-			.catch(() => {
-				res.status(500).json({
-					message: 'There was an error while saving the action to the database',
-				});
-			});
-	}
-});
-
-router.put('/:id', (req, res) => {
-	const { project_id, description, notes } = req.body;
-
-	if (!project_id || !description || !notes) {
-		res.status(400).json({
-			message:
-				'Please provide project id, description, and notes for the action',
-		});
-	} else {
-		Action.get(req.params.id)
-			.then((action) => {
-				if (!action) {
-					res.status(404).json({
-						message: 'The action with the specified ID does not exist',
-					});
-				} else {
-					return Action.update(req.params.id, req.body);
-				}
-			})
-			.then((data) => {
-				if (data) {
-					return Action.get(req.params.id);
-				}
-			})
-			.then((action) => {
-				if (action) {
-					res.json(action);
-				}
-			})
-			.catch(() => {
-				res
-					.status(500)
-					.json({ message: 'The action information could not be modified' });
-			});
-	}
-});
-
-router.delete('/:id', async (req, res) => {
-	try {
-		const action = await Action.get(req.params.id);
-		if (!action) {
-			res
-				.status(404)
-				.json({ message: 'The action with the specified ID does not exist' });
-		} else {
-			await Action.remove(req.params.id);
-			res.json(action);
-		}
-	} catch (err) {
-		res.status(500).json({ message: 'The action could not be removed' });
-	}
+router.delete('/:id', validateActionId, (req, res) => {
+	Action.remove(req.params.id).then(() => res.json(req.action));
 });
 
 module.exports = router;
