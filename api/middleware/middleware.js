@@ -29,29 +29,22 @@ const validateId = (model) => async (req, res, next) => {
 
 // Reusable Data validation
 const validateData = (model) => (req, res, next) => {
-	// If passed-in model is 'action'
-	if (model === 'action') {
-		const { project_id, description, notes } = req.body;
-		if (!project_id || !description || !notes) {
-			res.status(400).json({
-				message:
-					'Please provide project id, description, and notes for the action',
-			});
-		} else {
-			next();
-		}
-	}
+	// Sets data validation to model that is passed-in
+	const data =
+		model === 'action'
+			? (req.body.project_id, req.body.description, req.body.notes)
+			: (req.body.name, req.body.description);
 
-	// If passed-in model is 'project'
-	if (model === 'project') {
-		const { name, description } = req.body;
-		if (!name || !description) {
-			res.status(400).json({
-				message: 'Please provide name and description for the project',
-			});
-		} else {
-			next();
-		}
+	// Sets .status(404) message to model that is passed-in
+	const missingData =
+		model === 'action'
+			? 'Please provide project id, description, and notes for the action'
+			: 'Please provide name and description for the project';
+
+	if (!data) {
+		res.status(400).json({ message: missingData });
+	} else {
+		next();
 	}
 };
 
