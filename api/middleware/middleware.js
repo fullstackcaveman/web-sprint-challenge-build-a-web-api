@@ -32,10 +32,10 @@ const validateData = (model) => (req, res, next) => {
 	// Sets data validation to model that is passed-in
 	const data =
 		model === 'action'
-			? (req.body.project_id, req.body.description, req.body.notes)
-			: (req.body.name, req.body.description);
+			? req.body.project_id && req.body.description && req.body.notes
+			: req.body.name && req.body.description;
 
-	// Sets .status(404) message to model that is passed-in
+	// Sets .status(400) message to model that is passed-in
 	const missingData =
 		model === 'action'
 			? 'Please provide project id, description, and notes for the action'
