@@ -18,7 +18,7 @@ const dotenv = require('dotenv').config();
 const server = require('./api/server');
 
 const PORT = process.env.PORT || 5000;
-const enviornment = process.env.NODE_ENV;
+const enviornment = process.env.NODE_ENV || 'development';
 
 server.listen(PORT, () => {
 	console.log(`Server listening in ${enviornment} mode on port: ${PORT}`);
