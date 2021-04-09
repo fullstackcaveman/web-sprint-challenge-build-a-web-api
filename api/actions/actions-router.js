@@ -63,17 +63,15 @@ router.put('/:id', (req, res) => {
 	if (!project_id || !description || !notes) {
 		res.status(400).json({
 			message:
-				'Please provide project id, description,  and notes for the action',
+				'Please provide project id, description, and notes for the action',
 		});
 	} else {
 		Action.get(req.params.id)
 			.then((action) => {
 				if (!action) {
-					res
-						.status(404)
-						.json({
-							message: 'The action with the specified ID does not exist',
-						});
+					res.status(404).json({
+						message: 'The action with the specified ID does not exist',
+					});
 				} else {
 					return Action.update(req.params.id, req.body);
 				}

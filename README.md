@@ -44,7 +44,7 @@ A _"test"_ script already exists you can use to run tests against your code.
 
 #### Build an API
 
-- [ ] Inside `api/actions/actions-router.js` build endpoints for performing CRUD operations on _actions_:
+- [x] Inside `api/actions/actions-router.js` build endpoints for performing CRUD operations on _actions_:
 
   [x] `[GET] /api/actions` returns an array of actions (or an empty array) as the body of the _response_.
   [x] `[GET] /api/actions/:id` returns an action with the given `id` as the body of the _response_.
