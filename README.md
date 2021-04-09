@@ -128,7 +128,7 @@ After finishing your required elements, you can push your work further. These go
 
 - [ ] Deploy the API to Heroku.
 - [ ] Configure the API to support environment variables.
-- [ ] Use middleware for validation of incoming data.
+- [x] Use middleware for validation of incoming data.
 
 ## Submission format
 
