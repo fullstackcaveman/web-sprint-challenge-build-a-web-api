@@ -58,7 +58,7 @@ A _"test"_ script already exists you can use to run tests against your code.
   [x] `[GET] /api/projects/:id` returns a project with the given `id` as the body of the _response_.
   [x] `[POST] /api/projects` returns the newly created project as the body of the _response_.
   [ ] `[PUT] /api/projects/:id` returns the updated project as the body of the _response_.
-  [ ] `[DELETE] /api/projects/:id` returns no _response_ body.
+  [x] `[DELETE] /api/projects/:id` returns no _response_ body.
 
 - [ ] Inside `api/projects/projects-router.js` add an endpoint for retrieving the list of actions for a project:
 
