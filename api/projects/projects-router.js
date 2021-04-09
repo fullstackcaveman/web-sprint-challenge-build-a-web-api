@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 // @route  GET /api/projects/:id
 // @access Public
 router.get('/:id', validateId('project'), (req, res) => {
-	res.json(req.project);
+	res.json(req.data);
 });
 
 // @desc   Create a project
@@ -57,7 +57,7 @@ router.put(
 
 		Project.update(req.params.id, changes)
 			.then(() => {
-				return Project.get(req.project.id);
+				return Project.get(req.data.id);
 			})
 			.then((project) => {
 				if (project) {
@@ -79,7 +79,7 @@ router.delete('/:id', validateId('project'), (req, res) => {
 	Project.remove(req.params.id).then(() => res.json(req.project));
 });
 
-// @desc   Fetch all project actions
+// @desc   Fetch project actions by project id
 // @route  GET /api/projects/:id/actions
 // @access Public
 router.get('/:id/actions', validateId('project'), (req, res) => {

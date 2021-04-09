@@ -27,7 +27,8 @@ router.get('/', (req, res) => {
 // @route  GET /api/actions/:id
 // @access Public
 router.get('/:id', validateId('action'), (req, res) => {
-	res.json(req.action);
+	res.json(req.data);
+	// res.json(req.action);
 });
 
 // @desc   Create an action
@@ -53,7 +54,7 @@ router.put('/:id', validateId('action'), validateData('action'), (req, res) => {
 
 	Action.update(req.params.id, changes)
 		.then(() => {
-			return Action.get(req.action.id);
+			return Action.get(req.data.id);
 		})
 		.then((action) => {
 			if (action) {
@@ -71,7 +72,7 @@ router.put('/:id', validateId('action'), validateData('action'), (req, res) => {
 // @route  DELETE /api/actions/:id
 // @access Public
 router.delete('/:id', validateId('action'), (req, res) => {
-	Action.remove(req.params.id).then(() => res.json(req.action));
+	Action.remove(req.params.id).then(() => res.json(req.data));
 });
 
 module.exports = router;

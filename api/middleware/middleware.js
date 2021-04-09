@@ -1,5 +1,6 @@
-const Actions = require('../actions/actions-model');
-const Projects = require('../projects/projects-model');
+// Renamed imports to work with Dynamic Variables
+const { get: actionGet } = require('../actions/actions-model');
+const { get: projectGet } = require('../projects/projects-model');
 
 // Refactored both middleware files using 2 middleware functions each into 1 middleware file with 2 reusable functions
 
@@ -7,34 +8,22 @@ const Projects = require('../projects/projects-model');
 const validateId = (model) => async (req, res, next) => {
 	const id = req.params.id;
 
-	// If passed-in model is "action"
-	if (model === 'action') {
-		try {
-			const action = await Actions.get(id);
-			if (!action) {
-				res.status(404).json(`Action with id of ${id} not found`);
-			} else {
-				req.action = action;
-				next();
-			}
-		} catch (err) {
-			res.status(500).json(err.message);
-		}
-	}
+	// Changing 1st letter of model to uppercase for the .status(404)
+	const upperCaseModel = model.charAt(0).toUpperCase() + model.slice(1);
 
-	// If passed-in model is "project"
-	if (model === 'project') {
-		try {
-			const project = await Projects.get(id);
-			if (!project) {
-				res.status(404).json(`Project with id of ${id} not found`);
-			} else {
-				req.project = project;
-				next();
-			}
-		} catch (err) {
-			res.status(500).json(err.message);
+	// Dynamic variable based on what is passed into middleware
+	const modelGet = model === 'action' ? actionGet : projectGet;
+
+	try {
+		const data = await modelGet(id);
+		if (!data) {
+			res.status(404).json(`${upperCaseModel} with id of ${id} not found`);
+		} else {
+			req.data = data;
+			next();
 		}
+	} catch (err) {
+		res.status(500).json(err.message);
 	}
 };
 
