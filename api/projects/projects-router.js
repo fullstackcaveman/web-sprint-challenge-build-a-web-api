@@ -59,7 +59,40 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-	//
+	const { name, description } = req.body;
+
+	if (!name || !description) {
+		res.status(400).json({
+			message:
+				'Please provide project id, description, and notes for the action',
+		});
+	} else {
+		Project.get(req.params.id)
+			.then((project) => {
+				if (!project) {
+					res.status(404).json({
+						message: 'The project with the specified ID does not exist',
+					});
+				} else {
+					return Project.update(req.params.id, req.body);
+				}
+			})
+			.then((data) => {
+				if (data) {
+					return Project.get(req.params.id);
+				}
+			})
+			.then((project) => {
+				if (project) {
+					res.json(project);
+				}
+			})
+			.catch(() => {
+				res
+					.status(500)
+					.json({ message: 'The project information could not be modified' });
+			});
+	}
 });
 
 router.delete('/:id', async (req, res) => {
