@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
 	if (!project_id || !description || !notes) {
 		res
 			.status(400)
-			.json({ message: 'Please provide description and notes for the post' });
+			.json({ message: 'Please provide description and notes for the action' });
 	} else {
 		Action.insert(req.body)
 			.then(({ id }) => {
