@@ -5,7 +5,15 @@ const router = express.Router();
 const Action = require('./actions-model');
 
 router.get('/', (req, res) => {
-	// Action.
+	Action.get()
+		.then((action) => {
+			res.json(action);
+		})
+		.catch(() => {
+			res
+				.status(500)
+				.json({ message: 'The action information could not be retrieved' });
+		});
 });
 
 router.get('/:id', (req, res) => {
