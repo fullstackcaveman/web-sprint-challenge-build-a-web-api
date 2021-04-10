@@ -18,17 +18,17 @@ In meeting the minimum viable product (MVP) specifications listed below, your pr
 
 ### Task 1: Project Set Up
 
-- [ ] Fork and clone this repository. **If you are repeating this Course, delete your old fork from Github and re-fork and re-clone.**
-- [ ] Create a new branch: `git checkout -b <firstName-lastName>`.
-- [ ] Implement the project on your newly created branch, committing changes regularly.
-- [ ] Push commits: `git push origin <firstName-lastName>`.
-- [ ] **RUN** `npm install` to install your dependencies.
+- [x] Fork and clone this repository. **If you are repeating this Course, delete your old fork from Github and re-fork and re-clone.**
+- [x] Create a new branch: `git checkout -b <firstName-lastName>`.
+- [x] Implement the project on your newly created branch, committing changes regularly.
+- [x] Push commits: `git push origin <firstName-lastName>`.
+- [x] **RUN** `npm install` to install your dependencies.
 
 ### Task 2: CodeGrade Setup
 
-- [ ] Follow [instructions](https://www.notion.so/lambdaschool/Submitting-an-assignment-via-Code-Grade-A-Step-by-Step-Walkthrough-07bd65f5f8364e709ecb5064735ce374) to set up Codegrade's Webhook and Deploy Key, making sure your deployment is set to your `<firstName-lastName>` branch.
-- [ ] Push your first commit: `git commit --allow-empty -m "first commit" && git push`.
-- [ ] Check to see that Codegrade has accepted your git submission.
+- [x] Follow [instructions](https://www.notion.so/lambdaschool/Submitting-an-assignment-via-Code-Grade-A-Step-by-Step-Walkthrough-07bd65f5f8364e709ecb5064735ce374) to set up Codegrade's Webhook and Deploy Key, making sure your deployment is set to your `<firstName-lastName>` branch.
+- [x] Push your first commit: `git commit --allow-empty -m "first commit" && git push`.
+- [x] Check to see that Codegrade has accepted your git submission.
 
 ### Task 3: Project Requirements (MVP)
 
@@ -38,28 +38,31 @@ Your finished project must include all of the following requirements:
 
 A _"test"_ script already exists you can use to run tests against your code.
 
-- [ ] Write an _npm script_ named _"start"_ that uses `node` to run the API server.
-- [ ] Write an _npm script_ named _"server"_ that uses `nodemon`to run the API server.
-- [ ] Install _nodemon_ as a development dependency only that would not be used in production.
+- [x] Write an _npm script_ named _"start"_ that uses `node` to run the API server.
+- [x] Write an _npm script_ named _"server"_ that uses `nodemon`to run the API server.
+- [x] Install _nodemon_ as a development dependency only that would not be used in production.
 
 #### Build an API
 
-- [ ] Inside `api/actions/actions-router.js` build endpoints for performing CRUD operations on _actions_:
-  - `[GET] /api/actions` returns an array of actions (or an empty array) as the body of the _response_.
-  - `[GET] /api/actions/:id` returns an action with the given `id` as the body of the _response_.
-  - `[POST] /api/actions` returns the newly created action as the body of the _response_.
-  - `[PUT] /api/actions/:id` returns the updated action as the body of the _response_.
-  - `[DELETE] /api/actions/:id` returns no _response_ body.
+- [x] Inside `api/actions/actions-router.js` build endpoints for performing CRUD operations on _actions_:
 
-- [ ] Inside `api/projects/projects-router.js` build endpoints for performing CRUD operations on _projects_:
-  - `[GET] /api/projects` returns an array of projects (or an empty array) as the body of the response.
-  - `[GET] /api/projects/:id` returns a project with the given `id` as the body of the _response_.
-  - `[POST] /api/projects` returns the newly created project as the body of the _response_.
-  - `[PUT] /api/projects/:id` returns the updated project as the body of the _response_.
-  - `[DELETE] /api/projects/:id` returns no _response_ body.
+  [x] `[GET] /api/actions` returns an array of actions (or an empty array) as the body of the _response_.
+  [x] `[GET] /api/actions/:id` returns an action with the given `id` as the body of the _response_.
+  [x] `[POST] /api/actions` returns the newly created action as the body of the _response_.
+  [x] `[PUT] /api/actions/:id` returns the updated action as the body of the _response_.
+  [x] `[DELETE] /api/actions/:id` returns no _response_ body.
 
-- [ ] Inside `api/projects/projects-router.js` add an endpoint for retrieving the list of actions for a project:
-  - `[GET] /api/projects/:id/actions` sends an array of actions (or an empty array) as the body of the response.
+- [x] Inside `api/projects/projects-router.js` build endpoints for performing CRUD operations on _projects_:
+
+  [x] `[GET] /api/projects` returns an array of projects (or an empty array) as the body of the response.
+  [x] `[GET] /api/projects/:id` returns a project with the given `id` as the body of the _response_.
+  [x] `[POST] /api/projects` returns the newly created project as the body of the _response_.
+  [x] `[PUT] /api/projects/:id` returns the updated project as the body of the _response_.
+  [x] `[DELETE] /api/projects/:id` returns no _response_ body.
+
+- [x] Inside `api/projects/projects-router.js` add an endpoint for retrieving the list of actions for a project:
+
+  [x] `[GET] /api/projects/:id/actions` sends an array of actions (or an empty array) as the body of the response.
 
 - Both Projects and Actions have an optional `completed` property (see Database Schemas below). In both cases it's a boolean stored in the database as a 1 or a 0. Make sure to transform the raw `completed` values obtained from the db to `true` or `false`, before sending them back to the client.
 - When adding an action, make sure the `project_id` provided belongs to an existing `project`.
@@ -85,13 +88,13 @@ The description of the structure and extra information about each _resource_ sto
 
 #### Actions
 
-| Field       | Data Type | Metadata                                                                                         |
-| ----------- | --------- | ------------------------------------------------------------------------------------------------ |
-| id          | number    | no need to provide it when creating posts, the database will automatically generate it           |
-| project_id  | number    | required, must be the id of an existing project                                                  |
-| description | string    | up to 128 characters long, required                                                              |
-| notes       | string    | no size limit, required. Used to record additional notes or requirements to complete the action  |
-| completed   | boolean   | used to indicate if the action has been completed, not required                                  |
+| Field       | Data Type | Metadata                                                                                        |
+| ----------- | --------- | ----------------------------------------------------------------------------------------------- |
+| id          | number    | no need to provide it when creating posts, the database will automatically generate it          |
+| project_id  | number    | required, must be the id of an existing project                                                 |
+| description | string    | up to 128 characters long, required                                                             |
+| notes       | string    | no size limit, required. Used to record additional notes or requirements to complete the action |
+| completed   | boolean   | used to indicate if the action has been completed, not required                                 |
 
 ### Database Persistence Helpers
 
@@ -124,16 +127,16 @@ After finishing your required elements, you can push your work further. These go
 **IMPORTANT:** Do not break any MPV functionality by adding "stretch" code! Keep an eye on those tests!
 
 - [ ] Deploy the API to Heroku.
-- [ ] Configure the API to support environment variables.
-- [ ] Use middleware for validation of incoming data.
+- [x] Configure the API to support environment variables.
+- [x] Use middleware for validation of incoming data.
 
 ## Submission format
 
-- [ ] Submit via Codegrade by pushing commits to your `<firstName-lastName>` branch on Github.
-- [ ] Create a pull-request to merge `<firstName-lastName>` branch into main.
-- [ ] Check Codegrade for automated feedback.
-- [ ] Check Codegrade on Monday following the Sprint Challenge for reviewer feedback.
-- [ ] New commits will be evaluated by Codegrade if pushed _before_ the sprint challenge deadline.
+- [x] Submit via Codegrade by pushing commits to your `<firstName-lastName>` branch on Github.
+- [x] Create a pull-request to merge `<firstName-lastName>` branch into main.
+- [x] Check Codegrade for automated feedback.
+- [x] Check Codegrade on Monday following the Sprint Challenge for reviewer feedback.
+- [x] New commits will be evaluated by Codegrade if pushed _before_ the sprint challenge deadline.
 
 ## Interview Questions
 
